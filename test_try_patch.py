@@ -4,7 +4,7 @@ from mock import patch, Mock
 import try_patch
 
 
-class TestClassANoPatch(unittest.TestCase):
+class TestSlowClassNoPatch(unittest.TestCase):
 
     def test_slow(self):
         """
@@ -16,14 +16,14 @@ class TestClassANoPatch(unittest.TestCase):
         )
 
 
-class TestClassAContextManager(unittest.TestCase):
+class TestSlowClassContextManager(unittest.TestCase):
 
     def test_fast(self):
         """
         Testing a slow method patched to be fast using context manager
         """
-        with patch('try_patch.ClassA') as MockClassA:
-            instance = MockClassA.return_value
+        with patch('try_patch.SlowClass') as MockSlowClass:
+            instance = MockSlowClass.return_value
             instance.slow_method.return_value = 'fast_result'
             result = try_patch.get_result()
 
@@ -33,10 +33,10 @@ class TestClassAContextManager(unittest.TestCase):
         )
 
 
-class TestClassAPatchObjectDecorator(unittest.TestCase):
+class TestSlowClassPatchObjectDecorator(unittest.TestCase):
 
-    @patch.object(try_patch.ClassA, 'slow_method', return_value='fast_result')
-    def test_fast(self, mock_classA):
+    @patch.object(try_patch.SlowClass, 'slow_method', return_value='fast_result')
+    def test_fast(self, MockSlowClass):
         """
         Testing a slow method patched to be fast using @patch.object
         """
@@ -46,14 +46,14 @@ class TestClassAPatchObjectDecorator(unittest.TestCase):
         )
 
 
-class TestClassAPatchDecorator(unittest.TestCase):
+class TestSlowClassPatchDecorator(unittest.TestCase):
 
-    @patch('try_patch.ClassA', spec=True)
-    def test_fast(self, MockClassA):
+    @patch('try_patch.SlowClass', spec=True)
+    def test_fast(self, MockSlowClass):
         """
         Testing a slow method patched to be fast using @patch
         """
-        instance = MockClassA.return_value
+        instance = MockSlowClass.return_value
         instance.slow_method.return_value = 'fast_result'
         self.assertEqual(
             'fast_result',

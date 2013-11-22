@@ -1,7 +1,7 @@
 from time import sleep
 
 
-class ClassA(object):
+class SlowClass(object):
 
     def slow_method(self):
         sleep(3)
@@ -9,4 +9,4 @@ class ClassA(object):
 
 
 def get_result():
-    return ClassA().slow_method()
+    return SlowClass().slow_method()
