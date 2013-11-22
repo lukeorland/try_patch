@@ -6,14 +6,14 @@ import try_patch
 class TestClassA(unittest.TestCase):
 
     @patch('try_patch.ClassA')
-    def test_fast(self, patched_classA):
+    def test_fast(self, patched_classA, spec=True):
         """
         Testing a slow method patched to be fast
         """
-        patched_classA.method = Mock(return_value='classA')
+        patched_classA.slow_method = Mock(return_value='fast_method')
         self.assertEqual(
-            'classA',
-            patched_classA.method()
+            'fast_method',
+            try_patch.get_result()
         )
 
     def test_slow(self):
@@ -21,6 +21,6 @@ class TestClassA(unittest.TestCase):
         Testing a slow method
         """
         self.assertEqual(
-            'classA',
-            try_patch.ClassA().method()
+            'slow_method',
+            try_patch.get_result()
         )

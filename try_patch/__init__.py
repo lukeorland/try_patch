@@ -1,1 +1,1 @@
-from stuff import ClassA
+from stuff import ClassA, get_result
