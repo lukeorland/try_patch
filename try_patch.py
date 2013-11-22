@@ -1,10 +1,10 @@
-#from time import sleep
+from time import sleep
 
 
 class ClassA(object):
 
     def slow_method(self):
-        #sleep(3)
+        sleep(3)
         return 'slow_result'
 
 
